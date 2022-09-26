@@ -8,12 +8,16 @@ using UnityEngine;
         public float forwardForce = 2000f;
         public float sideForce = 1000f;
         public GameManager gm;
+        public Transform player;
 
         public delegate void speedAction();
         public static event speedAction OnSpeed;
 
         public delegate void slowAction();
         public static event slowAction OnSlow;
+
+        public delegate void scoreAction();
+        public static event scoreAction OnScore;
 
         void OnTriggerEnter(Collider other)
         {
@@ -29,6 +33,15 @@ using UnityEngine;
                     OnSlow();
             }
         }
+
+        public void OnHundred()
+         {
+            if (player.position.z == 100f)
+            {
+                if (OnScore != null)
+                OnScore();
+            }
+         }
 
         // Update is called once per frame
         void FixedUpdate()

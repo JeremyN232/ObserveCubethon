@@ -12,16 +12,22 @@ public class GameManager : MonoBehaviour
     public GameObject completeLevelUI;
     public GameObject speedUpUI;
     public GameObject slowDownUI;
+    public GameObject checkpointUI;
+    public float currentTime = 0.0f;
+    public float executedTime = 0.0f;
+    public float textDelay = 2.5f;
 
     void OnEnable()
     {
         PlayerMovement.OnSpeed += speedUp;
         PlayerMovement.OnSlow += slowDown;
+        PlayerMovement.OnScore += checkPoint;
     }
     void OnDisable()
     {
         PlayerMovement.OnSpeed -= speedUp;
         PlayerMovement.OnSlow -= slowDown;
+        PlayerMovement.OnScore -= checkPoint;
     }
 
     public void completeLevel(){
@@ -41,6 +47,12 @@ public class GameManager : MonoBehaviour
         pm.forwardForce = 1000f;
         speedUpUI.SetActive(false);
         slowDownUI.SetActive(true);
+    }
+
+    public void checkPoint()
+    {
+
+        checkpointUI.SetActive(true);
     }
     public void EndGame()
     {
