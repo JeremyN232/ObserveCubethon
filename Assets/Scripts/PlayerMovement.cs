@@ -9,20 +9,24 @@ using UnityEngine;
         public float sideForce = 1000f;
         public GameManager gm;
 
- 
+        public delegate void speedAction();
+        public static event speedAction OnSpeed;
+
+        public delegate void slowAction();
+        public static event slowAction OnSlow;
 
         void OnTriggerEnter(Collider other)
         {
             if (other.tag == "Speedup")
             {
-                Debug.Log("speed up");
-                forwardForce = 4500f;
-                gm.speedUp();
+                
+                if (OnSpeed != null)
+                    OnSpeed();  
             }
             if (other.tag == "Slowdown")
             {
-                forwardForce = 1000f;
-                gm.slowDown();
+                if (OnSlow != null)
+                    OnSlow();
             }
         }
 
